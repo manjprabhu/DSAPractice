@@ -35,35 +35,35 @@ public class EvaluationOfPostfixExp {
             if (Character.isDigit(ele)) {
                 push(ele - '0');
             } else {
-                int op1 = pop();
                 int op2 = pop();
+                int op1 = pop();
                 int result;
 
                 System.out.println("==>> op1 :" + op1 + " op2 :" + op2 + " Ele :" + ele);
 
                 switch (ele) {
                     case '+': {
-                        result = op2 + op1;
+                        result = op1 + op2;
                         push(result);
                         break;
                     }
                     case '-': {
-                        result = op2 - op1;
+                        result = op1 - op2;
                         push(result);
                         break;
                     }
                     case '*': {
-                        result = op2 * op1;
+                        result = op1 * op2;
                         push(result);
                         break;
                     }
                     case '/': {
-                        result = op2 / op1;
+                        result = op1 / op2;
                         push(result);
                         break;
                     }
                     case '^': {
-                        result = (int) Math.pow(op2, op1);
+                        result = (int) Math.pow(op1, op2);
                         System.out.println("==>> power result:" + result);
                         push(result);
                         break;
