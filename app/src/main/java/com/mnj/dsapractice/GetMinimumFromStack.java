@@ -19,7 +19,7 @@ public class GetMinimumFromStack {
         top = top + 1;
         stack[top] = data;
 
-        pushToMinStack(data);
+        pushToMinStackImprovised(data);
     }
 
     void pushToMinStack(int data) {
@@ -35,6 +35,19 @@ public class GetMinimumFromStack {
             minTop = minTop + 1;
             minStack[minTop] = ele;
         } else {
+            minTop = minTop + 1;
+            minStack[minTop] = data;
+        }
+    }
+
+    void pushToMinStackImprovised(int data) {
+        if (minTop == maxSize) {
+            System.out.println("==>> Stack overflow");
+            return;
+        } else if (minTop == -1) {
+            minTop = minTop + 1;
+            minStack[minTop] = data;
+        } else if (minStack[minTop] >= data) {
             minTop = minTop + 1;
             minStack[minTop] = data;
         }
