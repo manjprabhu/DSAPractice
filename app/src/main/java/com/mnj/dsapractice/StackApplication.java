@@ -96,9 +96,7 @@ public class StackApplication {
         s.push(1);
         s.push(4);
         s.push(5);
-        while (!s.isEmpty()) {
-            System.out.println("==>> Before Stack content is : " + s.pop());
-        }
+
         reverse(s);
     }
 
@@ -134,10 +132,48 @@ public class StackApplication {
             return;
         }
 
+        //save the top element and then pop the stack.
         int num = stack.peek();
         stack.pop();
 
         insertInSortedWay(stack, element);
         stack.push(num);
+    }
+
+
+    //    ********************************* Redundant brackets ***********************************************
+
+    //bracket is redundant if there is no operator between opening and closing bracket
+    boolean isRedundant() {
+        String exp = "(x + (a+b))";
+        Stack<Character> stack = new Stack<>();
+
+        for (int i = 0; i < exp.length(); i++) {
+
+            char ch = exp.charAt(i);
+
+            //If current element is opening bracket or an operator push to the stack
+            if (ch == '(' || ch == '-' || ch == '+' || ch == '*' || ch == '/') {
+                stack.push(ch);
+            } else {
+                //if the current element is closing bracket then check if there is any operator in between closing and opening bracket
+                //so run the while loop
+                if (ch == ')') {
+                    boolean isRedundant = true;
+                    while (stack.peek() != '(') {
+                        char top = stack.peek();
+                        if (top == '-' || top == '+' || top == '*' || top == '/') {
+                            isRedundant = false;
+                        }
+                        stack.pop();
+                    }
+                    if (isRedundant)
+                        return true;
+                    stack.pop(); // to pop the '('
+                }
+
+            }
+        }
+        return false;
     }
 }
