@@ -100,6 +100,44 @@ public class StackApplication {
             System.out.println("==>> Before Stack content is : " + s.pop());
         }
         reverse(s);
+    }
 
+    //    ********************************* Sort the  Stack ***********************************************
+
+    void sortStack() {
+        Stack<Integer> s = new Stack<>();
+        s.push(7);
+        s.push(1);
+        s.push(4);
+        s.push(5);
+        sort(s);
+    }
+
+    void sort(Stack<Integer> stack) {
+
+        if (stack.isEmpty()) {
+            return;
+        }
+
+        int num = stack.peek();
+        stack.pop();
+
+        sort(stack);
+        insertInSortedWay(stack, num);
+    }
+
+    private void insertInSortedWay(Stack<Integer> stack, int element) {
+
+        //If stack is empty or top element is smaller than current element , push the element in stack.
+        if (stack.isEmpty() || stack.peek() < element) {
+            stack.push(element);
+            return;
+        }
+
+        int num = stack.peek();
+        stack.pop();
+
+        insertInSortedWay(stack, element);
+        stack.push(num);
     }
 }
