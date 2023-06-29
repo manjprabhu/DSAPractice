@@ -7,11 +7,10 @@ public class StackApplication {
     Stack<Integer> s = new Stack<Integer>();
 
     void deleteCenterElementFromStack() {
-        s.push(10);
-        s.push(12);
-        s.push(11);
-        s.push(14);
-        s.push(15);
+        s.push(5);
+        s.push(4);
+        s.push(1);
+        s.push(7);
         deleteMiddleElement(s, s.size());
     }
 
@@ -36,5 +35,71 @@ public class StackApplication {
         while (!s.isEmpty()) {
             System.out.println("==>> Stack content is : " + s.pop());
         }
+    }
+
+//    ********************************* Insert at the bottom of stack ***********************************************
+
+    private void insert(Stack<Integer> stack, int element) {
+        if (stack.isEmpty()) {
+            stack.push(element);
+            return;
+        }
+        int num = stack.peek();
+        stack.pop();
+
+        //recursive call
+        insert(stack, element);
+        stack.push(num);
+    }
+
+    void insertElementAtBottom() {
+        s.push(7);
+        s.push(1);
+        s.push(4);
+        s.push(5);
+        int element = 9;
+        insert(s, element);
+    }
+
+    //    ********************************* Reverse  Stack ***********************************************
+
+    private void reverse(Stack<Integer> stack) {
+        //Base condition
+        if (stack.isEmpty()) {
+            return;
+        }
+
+        int num = stack.peek();
+        stack.pop();
+
+        reverse(stack);
+        //insert at bottom
+        insertBottom(stack, num);
+    }
+
+    void insertBottom(Stack<Integer> stack, int element) {
+        if (stack.isEmpty()) {
+            stack.push(element);
+            return;
+        }
+
+        int num = stack.peek();
+        stack.pop();
+
+        insertBottom(stack, element);
+        stack.push(num);
+    }
+
+    void revereStack() {
+        Stack<Integer> s = new Stack<>();
+        s.push(7);
+        s.push(1);
+        s.push(4);
+        s.push(5);
+        while (!s.isEmpty()) {
+            System.out.println("==>> Before Stack content is : " + s.pop());
+        }
+        reverse(s);
+
     }
 }
