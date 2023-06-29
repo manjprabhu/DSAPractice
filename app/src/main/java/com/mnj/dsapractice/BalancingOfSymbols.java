@@ -1,5 +1,7 @@
 package com.mnj.dsapractice;
 
+import java.util.Stack;
+
 public class BalancingOfSymbols {
 
     int top = -1;
@@ -8,10 +10,11 @@ public class BalancingOfSymbols {
     char[] stack = new char[maxSize];
 
     boolean checkBalance() {
-
         String exp = "(A+B)+(C-D)";
         for (int i = 0; i < exp.length(); i++) {
             char ele = exp.charAt(i);
+
+            //if opening bracket push
             if (ele == '(' || ele == '{' || ele == '[') {
                 push(ele);
                 continue;
@@ -49,7 +52,7 @@ public class BalancingOfSymbols {
     }
 
     void push(char data) {
-        System.out.println("==>> Push :"+data);
+        System.out.println("==>> Push :" + data);
         if (top == maxSize) {
             System.out.println("==>> Stack overflow");
             return;
@@ -66,5 +69,38 @@ public class BalancingOfSymbols {
         char ele = stack[top];
         top--;
         return ele;
+    }
+
+
+    // another way to check balancing using Stack class
+
+    boolean checkBalancing() {
+        Stack<Character> stack = new Stack<>();
+
+        String exp = "[({}){}[]]";
+
+        for (int i = 0; i < exp.length(); i++) {
+            char ele = exp.charAt(i);
+            System.out.println("==>>  1 Element is :" + ele);
+
+            if (ele == '(' || ele == '{' || ele == '[') {
+                stack.push(ele);
+            } else {
+                if (!stack.isEmpty()) {
+                    char top = stack.peek();
+                    System.out.println("==>> Peek Element is :" + top);
+                    System.out.println("==>>  Element is :" + ele);
+                    if ((ele == ')' && top == '(') || (ele == '}' && top == '{') || (ele == ']' && top == '[')) {
+                        stack.pop();
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            }
+
+        }
+        return stack.isEmpty();
     }
 }
