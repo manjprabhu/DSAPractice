@@ -63,8 +63,12 @@ public class StackApplication {
 
     //    ********************************* Reverse  Stack ***********************************************
 
+    /*Algo: Step1 : First pop all the element of the stack till it becomes empty
+    *       Step2: For each upward step in recursion, insert element at the bottom of stack.
+    **/
+
     private void reverse(Stack<Integer> stack) {
-        //Base condition
+        //Base condition (Step1)
         if (stack.isEmpty()) {
             return;
         }
@@ -73,7 +77,8 @@ public class StackApplication {
         stack.pop();
 
         reverse(stack);
-        //insert at bottom
+
+        //insert at bottom (Step2)
         insertBottom(stack, num);
     }
 
@@ -144,6 +149,7 @@ public class StackApplication {
     //    ********************************* Redundant brackets ***********************************************
 
     //bracket is redundant if there is no operator between opening and closing bracket
+    //time complexity O(n)
     boolean isRedundant() {
         String exp = "(x + (a+b))";
         Stack<Character> stack = new Stack<>();
@@ -156,8 +162,10 @@ public class StackApplication {
             if (ch == '(' || ch == '-' || ch == '+' || ch == '*' || ch == '/') {
                 stack.push(ch);
             } else {
+                //if current element is ')' then certainly there is '(' in stack, since expression is valid expression.
                 //if the current element is closing bracket then check if there is any operator in between closing and opening bracket
-                //so run the while loop
+                //so run the while loop until we find open bracket '(', check the stack top for an operator
+                // if there is an operator on top of the stack then current closing bracket is not redundant
                 if (ch == ')') {
                     boolean isRedundant = true;
                     while (stack.peek() != '(') {
